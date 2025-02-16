@@ -6,7 +6,7 @@ from _captioning import Captioning
 from _sqlite import sqlite_save
 
 import datetime
-today = datetime.date.today().strftime("%m_%d")
+
 Bug_df = excel.Bug_excel_setup()
 class News:
     @staticmethod
@@ -42,9 +42,11 @@ class News:
         
         # 새로운 URL 필터링 (sequence=True이면 전체 크롤링)
         new_urls = main_page_urls if sequence else list(set(main_page_urls) - set(prev_news))
-        
+        total_urls = len(new_urls)  # 전체 URL 개수
         for i, url in enumerate(new_urls):
             try:
+                remaining = total_urls - (i + 1)  # 남은 반복 횟수
+                today = datetime.date.today().strftime("%m_%d")
                 soup = CrawlingData.bs_Setup(url)
                 _news_author, _news_date_time = CrawlingData.news_author_date_time(driver, soup)
                 _news_caption = CrawlingData.news_caption(driver, soup)
@@ -55,6 +57,9 @@ class News:
 
                 # 디버깅용 출력
                 print("\n\n*****************************************************************")
+                print("드라이브")
+                print(driver.current_url)
+                print(f"남은 url수{remaining}")
                 print(f"- url: {url}\n- press: {main_page_press[i]}\n- title: {main_page_titles[i]}")
                 # print(f"- author: {_news_author}\n- date_time: {_news_date_time}\n- caption: {_news_caption}")
                 # print(f"- original text: {_news_original_text}\n- summary: {_news_summary}")

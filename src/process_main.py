@@ -43,7 +43,6 @@ def S_sequence():
         try:
             print("US 뉴스 처리 중...")
             US_pre_news = News.process_news_category(driver, US_df, "Us", False, US_pre_news)
-            print("US 뉴스 처리완료")
             print("정치 뉴스 처리 중...")
             Politics_pre_news = News.process_news_category(driver, Politics_df, "Politics", False, Politics_pre_news)
             print("세계 뉴스 처리 중...")
