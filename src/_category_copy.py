@@ -3,7 +3,8 @@ from _crawling_copy import CrawlingData
 from _summary import Summary
 from _excel import excel
 from _captioning import Captioning
-from _sqlite import sqlite_save
+from _save_db import SaveDB
+import os
 
 import datetime
 
@@ -26,10 +27,7 @@ class News:
         """
         logging.info(f"Processing category: {category}")
         driver = CrawlingData.category_set(driver, category)
-        
-        print("드라이브")
-        print(driver.current_url)
-        
+       
         if sequence:
             CrawlingData.scroll_down(driver, 200)
         
@@ -54,33 +52,32 @@ class News:
                 _news_summary = Summary.summary_Short(_news_original_text)
                 _image_url = CrawlingData.news_imageURL(driver, soup)
                 _generated_caption = Captioning.generate_caption(_image_url)
+                
+                folder_path = f"/home/llmproject/Desktop/Transformer/llmproject2/databases_date/{today}"
+                if not os.path.exists(folder_path):
+                    os.makedirs(folder_path)
 
                 # 디버깅용 출력
                 print("\n\n*****************************************************************")
-                print("드라이브")
-                print(driver.current_url)
-                print(f"남은 url수{remaining}")
-                print(f"- url: {url}\n- press: {main_page_press[i]}\n- title: {main_page_titles[i]}")
+                print(f"현재 url: {driver.current_url}")
+                print(f"현재 처리 중: {i + 1}/{total_urls}, 남은 개수: {remaining}")
+                # print(f"- url: {url}\n- press: {main_page_press[i]}\n- title: {main_page_titles[i]}")
                 # print(f"- author: {_news_author}\n- date_time: {_news_date_time}\n- caption: {_news_caption}")
                 # print(f"- original text: {_news_original_text}\n- summary: {_news_summary}")
-
-                # 엑셀 저장
-                # excel.save_to_excel(df, url, main_page_press[i], main_page_titles[i], _news_author, _news_date_time, 
-                #                _news_caption, _news_original_text, _news_summary, _image_url, _generated_caption,
-                #                f"/home/llmproject/Desktop/Transformer/llmproject2/excels/{category}.xlsx",category)
+                
                 # SQLite 저장
-                sqlite_save(category, main_page_urls[i], main_page_titles[i], main_page_press[i], _news_author, _news_date_time,
+                SaveDB.save_news_to_db(category, main_page_urls[i], main_page_titles[i], main_page_press[i], _news_author, _news_date_time,
                             _image_url, _news_original_text, _news_summary, _news_caption, _generated_caption,  
                             f"/home/llmproject/Desktop/Transformer/llmproject2/databases/{category}.db", category)
                 
-                sqlite_save(category, main_page_urls[i], main_page_titles[i], main_page_press[i], _news_author, _news_date_time,
+                SaveDB.save_news_to_db(category, main_page_urls[i], main_page_titles[i], main_page_press[i], _news_author, _news_date_time,
                             _image_url, _news_original_text, _news_summary, _news_caption, _generated_caption,  
-                            f"/home/llmproject/Desktop/Transformer/llmproject2/databases_date/{category}_{today}.db", category)
+                            f"{folder_path}/{category}.db", category)
                 
                 print("DB 저장 완료")
 
             except Exception as e:
-                    excel.Bug_excel_operation(Bug_df, main_page_urls[i], e)
+                    SaveDB.save_log_failed(f"{folder_path}/Bug.db",main_page_urls[i],e)
                     print(f"[오류 발생] {type(e).__name__}: {e}")
 
         return main_page_urls

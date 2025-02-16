@@ -2,10 +2,10 @@ import pandas as pd
 import time
 
 # 엑셀 파일 경로
-US_file_path = 'C:/Users/user/OneDrive/Desktop/llmproject2/US_news_data.xlsx'
-Politics_file_path = 'C:/Users/user/OneDrive/Desktop/llmproject2/Politics_news_data.xlsx'
-World_file_path = 'C:/Users/user/OneDrive/Desktop/llmproject2/World_news_data.xlsx'
-Bug_file_path = 'C:/Users/user/OneDrive/Desktop/llmproject2/Bug_news_data.xlsx'
+US_file_path = '/home/llmproject/Desktop/Transformer/llmproject2/excels/US_news_data.xlsx'
+Politics_file_path = '/home/llmproject/Desktop/Transformer/llmproject2/excels/Politics_news_data.xlsx'
+World_file_path = '/home/llmproject/Desktop/Transformer/llmproject2/excels/World_news_data.xlsx'
+Bug_file_path = '/home/llmproject/Desktop/Transformer/llmproject2/excels/Bug_news_data.xlsx'
 
 class excel:
     # 데이터 저장 함수

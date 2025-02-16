@@ -27,11 +27,11 @@ def init_driver():
     
 def F_sequence():
     """첫 번째 크롤링 실행 (모든 뉴스 크롤링)"""
-    print("US 뉴스 처리 중...")
+    print("US 뉴스 처리 중(1)...")
     News.process_news_category(driver, US_df, "Us", True, '')
-    print("정치 뉴스 처리 중...")
+    print("정치 뉴스 처리 중(1)...")
     News.process_news_category(driver, Politics_df, "Politics", True, '')
-    print("세계 뉴스 처리 중...")
+    print("세계 뉴스 처리 중(1)...")
     News.process_news_category(driver, World_df, "World", True, '')
 
 def S_sequence():
@@ -41,11 +41,11 @@ def S_sequence():
    
     while True:
         try:
-            print("US 뉴스 처리 중...")
+            print("US 뉴스 처리 중(2)...")
             US_pre_news = News.process_news_category(driver, US_df, "Us", False, US_pre_news)
-            print("정치 뉴스 처리 중...")
+            print("정치 뉴스 처리 중(2)...")
             Politics_pre_news = News.process_news_category(driver, Politics_df, "Politics", False, Politics_pre_news)
-            print("세계 뉴스 처리 중...")
+            print("세계 뉴스 처리 중(2)...")
             World_pre_news = News.process_news_category(driver, World_df, "World", False, World_pre_news)
 
         except Exception as e:
