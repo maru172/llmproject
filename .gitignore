@@ -1,2 +1,4 @@
-databases_date/
-databases/
+databases/*
+!databases/.gitkeep
+databases_date/*
+!databases_date/.gitkeep
