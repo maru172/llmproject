@@ -77,6 +77,7 @@ class News:
                 print("DB 저장 완료")
 
             except Exception as e:
+                    print("\n\n*****************************************************************")
                     SaveDB.save_log_failed(f"{folder_path}/Bug.db",main_page_urls[i],e)
                     print(f"[오류 발생] {type(e).__name__}: {e}")
 

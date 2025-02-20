@@ -30,18 +30,33 @@
     </ul>
 
     <hr>
-
+    
     <!-- 페이지 네비게이션 -->
-    <div>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 20px;">
+        <!-- Previous 버튼 -->
         {% if page > 1 %}
-            <a href="{{ url_for('home', db_file=db_file, page=page-1) }}">Previous</a>
+            <a href="{{ url_for('home', db_file=db_file, page=page-1) }}"
+            style="padding: 8px 16px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+            Previous
+            </a>
+        {% else %}
+            <div style="width: 80px;"></div>  <!-- 버튼 없을 때 공간 유지 -->
         {% endif %}
 
-        Page {{ page }} of {{ total_pages }}
+        <!-- 페이지 정보 -->
+        <span style="font-weight: bold; font-size: 18px;">Page {{ page }} of {{ total_pages }}</span>
 
+        <!-- Next 버튼 -->
         {% if page < total_pages %}
-            <a href="{{ url_for('home', db_file=db_file, page=page+1) }}">Next</a>
+            <a href="{{ url_for('home', db_file=db_file, page=page+1) }}"
+            style="padding: 8px 16px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+            Next
+            </a>
+        {% else %}
+            <div style="width: 80px;"></div>  <!-- 버튼 없을 때 공간 유지 -->
         {% endif %}
     </div>
+
+
 </body>
 </html>
