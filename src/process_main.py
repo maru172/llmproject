@@ -1,5 +1,5 @@
-from _crawling_copy import CrawlingData
-from _category_copy import News
+from _crawling import CrawlingData
+from _category import News
 from _excel import excel
 import time
 

@@ -21,11 +21,10 @@ class CrawlingData:
         ## chrome driver activate
         # driver = webdriver.Chrome()
         # ChromeDriver 설정
-        options = Options()
-        options.headless = True  # 헤드리스 모드
-        print("옵션설정")
         # Firefox 드라이버 실행
         service = Service('/snap/bin/geckodriver')
+        options = Options()
+        options.headless = True  # 헤드리스 모드
         driver = webdriver.Firefox(service=service, options=options)
         driver.set_page_load_timeout(120)  # 페이지 로딩 시간 120초로 증가
         print("드라이버 시작")
