@@ -2,11 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
+
 import requests
 from bs4 import BeautifulSoup
 import time
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 class CrawlingData:
     def bs_Setup(url):
@@ -22,7 +25,8 @@ class CrawlingData:
         # driver = webdriver.Chrome()
         # ChromeDriver 설정
         # Firefox 드라이버 실행
-        service = Service('/snap/bin/geckodriver')
+        # service = Service('/usr/local/bin/geckodriver')
+        service = Service(Service(ChromeDriverManager().install()))
         options = Options()
         options.headless = True  # 헤드리스 모드
         driver = webdriver.Firefox(service=service, options=options)

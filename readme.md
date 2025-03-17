@@ -25,3 +25,8 @@ python == 3.9.19
 transformer == 4.37.2
 cuda == 12.4
 selenium == 4.20.0
+
+셀레니움 설치법
+sudo apt update
+sudo apt install firefox -y
+
